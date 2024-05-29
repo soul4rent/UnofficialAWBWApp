@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
-import android.webkit.WebBackForwardList
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         webView = findViewById(R.id.webview)
         // chromium, enable hardware acceleration
-        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         webView.setWebViewClient(object : WebViewClient() {
 
             //make sure deep links are forced to be rendered inside the webview
@@ -57,10 +56,10 @@ class MainActivity : AppCompatActivity() {
 
         })
 
-        webView.getSettings().domStorageEnabled = true; //for safe password storage
-        webView.getSettings().javaScriptEnabled = true;
-        webView.getSettings().builtInZoomControls = true; //for toggling zoom
-        webView.getSettings().displayZoomControls = false; //hide +/- buttons
+        webView.getSettings().domStorageEnabled = true //for safe password storage
+        webView.getSettings().javaScriptEnabled = true
+        webView.getSettings().builtInZoomControls = true //for toggling zoom
+        webView.getSettings().displayZoomControls = false //hide +/- buttons
         if (savedInstanceState == null) {
             webView.loadUrl("https://awbw.amarriner.com/");
         }
