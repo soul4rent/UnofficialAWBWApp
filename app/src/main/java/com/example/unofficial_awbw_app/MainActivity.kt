@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         webView.getSettings().builtInZoomControls = true //for toggling zoom
         webView.getSettings().displayZoomControls = false //hide +/- buttons
         if (savedInstanceState == null) {
-            webView.loadUrl("https://awbw.amarriner.com/");
+            webView.loadUrl("https://awbw.amarriner.com/")
         }
 
         val zoomButton: Button = findViewById(R.id.zoom_btn)
