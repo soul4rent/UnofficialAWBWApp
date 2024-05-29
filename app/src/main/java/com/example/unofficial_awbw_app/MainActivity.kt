@@ -1,11 +1,10 @@
 package com.example.unofficial_awbw_app
 
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.view.MotionEvent
+import android.view.KeyEvent
 import android.view.View
-import android.view.View.OnTouchListener
+import android.webkit.WebBackForwardList
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
@@ -17,6 +16,22 @@ import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var webView: ScrollDisabledWebView
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (event.action == KeyEvent.ACTION_DOWN) {
+            when (keyCode) {
+                KeyEvent.KEYCODE_BACK -> {
+                    if (webView.canGoBack()) {
+                        webView.goBack()
+                    } else {
+                        finish()
+                    }
+                    return true
+                }
+            }
+        }
+        return super.onKeyDown(keyCode, event)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
 
         //app defaults
@@ -29,11 +44,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val webView: ScrollDisabledWebView = findViewById(R.id.webview)
-
+        webView = findViewById(R.id.webview)
         // chromium, enable hardware acceleration
         webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-
         webView.setWebViewClient(object : WebViewClient() {
 
             //make sure deep links are forced to be rendered inside the webview
@@ -65,7 +78,6 @@ class MainActivity : AppCompatActivity() {
 
         val moveButton: Button = findViewById(R.id.move_btn)
         moveButton.setBackgroundColor(Color.DKGRAY)
-
         moveButton.setOnClickListener {
             if (webView.scrollEnabled){
                 moveButton.setBackgroundColor(Color.BLUE)
