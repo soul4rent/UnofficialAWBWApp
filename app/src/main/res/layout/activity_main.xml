@@ -18,30 +18,39 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true">
+
+        <Button
+            android:id="@+id/drawer_btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="▶"
+            android:paddingHorizontal="1dp"
+            />
+
     <Button
         android:id="@+id/zoom_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:text="Zoom🔒" />
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="🔎🔒"
+        android:paddingHorizontal="1dp"
+        />
 
     <Button
         android:id="@+id/move_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:text="Scroll🔒" />
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="↔️🔒"
+        android:paddingHorizontal="1dp"
+        />
 
     <Button
         android:id="@+id/refresh_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:text="🔄"
-        android:backgroundTint="@android:color/darker_gray"/>
+        android:paddingHorizontal="1dp"
+        android:backgroundTint="@android:color/darker_gray"
+        />
     </LinearLayout>
 
 </RelativeLayout>

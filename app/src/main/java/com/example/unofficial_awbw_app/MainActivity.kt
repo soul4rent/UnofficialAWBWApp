@@ -64,7 +64,25 @@ class MainActivity : AppCompatActivity() {
             webView.loadUrl("https://awbw.amarriner.com/")
         }
 
+        val drawerButton: Button = findViewById(R.id.drawer_btn)
         val zoomButton: Button = findViewById(R.id.zoom_btn)
+        val moveButton: Button = findViewById(R.id.move_btn)
+        val refreshButton: Button = findViewById(R.id.refresh_btn)
+
+        drawerButton.setOnClickListener {
+            if (drawerButton.text == "▶"){
+                drawerButton.text = "☰"
+                zoomButton.visibility = View.INVISIBLE
+                moveButton.visibility = View.INVISIBLE
+                refreshButton.visibility = View.INVISIBLE
+            } else {
+                drawerButton.text = "▶"
+                zoomButton.visibility = View.VISIBLE
+                moveButton.visibility = View.VISIBLE
+                refreshButton.visibility = View.VISIBLE
+            }
+        }
+
         zoomButton.setBackgroundColor(Color.DKGRAY)
         zoomButton.setOnClickListener {
             if (webView.settings.builtInZoomControls){
@@ -75,7 +93,6 @@ class MainActivity : AppCompatActivity() {
             webView.getSettings().builtInZoomControls = !webView.getSettings().builtInZoomControls
         }
 
-        val moveButton: Button = findViewById(R.id.move_btn)
         moveButton.setBackgroundColor(Color.DKGRAY)
         moveButton.setOnClickListener {
             if (webView.scrollEnabled){
@@ -86,7 +103,6 @@ class MainActivity : AppCompatActivity() {
             webView.scrollEnabled = !webView.scrollEnabled
         }
 
-        val refreshButton: Button = findViewById(R.id.refresh_btn)
         refreshButton.setOnClickListener {
             webView.reload()
         }
