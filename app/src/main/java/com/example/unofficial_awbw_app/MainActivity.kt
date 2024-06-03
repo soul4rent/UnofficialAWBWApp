@@ -7,6 +7,7 @@ import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
+import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,6 +17,16 @@ import androidx.core.view.WindowInsetsCompat
 class MainActivity : AppCompatActivity() {
 
     lateinit var webView: ScrollDisabledWebView
+    lateinit var drawerButton: Button
+    lateinit var zoomButton: Button
+    lateinit var moveButton: Button
+    lateinit var refreshButton: Button
+
+    //gameplay buttons
+    lateinit var gamerButton: Button
+    lateinit var endTurnButton: Button
+    lateinit var confirmEndTurnButton: Button
+    lateinit var gamerButtonList: LinearLayout
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (event.action == KeyEvent.ACTION_DOWN) {
             when (keyCode) {
@@ -29,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        setGamerButtonListVisiblity(webView)
         return super.onKeyDown(keyCode, event)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +55,19 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+
+        //default buttons
+        drawerButton = findViewById(R.id.drawer_btn)
+        zoomButton = findViewById(R.id.zoom_btn)
+        moveButton = findViewById(R.id.move_btn)
+        refreshButton = findViewById(R.id.refresh_btn)
+
+        //gameplay buttons
+        gamerButton = findViewById(R.id.gamer_btn)
+        endTurnButton = findViewById(R.id.end_btn)
+        confirmEndTurnButton = findViewById(R.id.confirm_btn)
+        gamerButtonList = findViewById(R.id.gamer_btn_list)
+
         webView = findViewById(R.id.webview)
         // chromium, enable hardware acceleration
         webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
@@ -54,8 +79,14 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
 
-        })
+            override fun onPageFinished(view: WebView?, url: String?) {
+                if (view != null) {
+                    setGamerButtonListVisiblity(view)
+                }
+                super.onPageFinished(view, url)
+            }
 
+        })
         webView.getSettings().domStorageEnabled = true //for safe password storage
         webView.getSettings().javaScriptEnabled = true
         webView.getSettings().builtInZoomControls = true //for toggling zoom
@@ -64,23 +95,15 @@ class MainActivity : AppCompatActivity() {
             webView.loadUrl("https://awbw.amarriner.com/")
         }
 
-        val drawerButton: Button = findViewById(R.id.drawer_btn)
-        val zoomButton: Button = findViewById(R.id.zoom_btn)
-        val moveButton: Button = findViewById(R.id.move_btn)
-        val refreshButton: Button = findViewById(R.id.refresh_btn)
-
         drawerButton.setOnClickListener {
             if (drawerButton.text == "▶"){
                 drawerButton.text = "☰"
-                zoomButton.visibility = View.INVISIBLE
-                moveButton.visibility = View.INVISIBLE
-                refreshButton.visibility = View.INVISIBLE
             } else {
                 drawerButton.text = "▶"
-                zoomButton.visibility = View.VISIBLE
-                moveButton.visibility = View.VISIBLE
-                refreshButton.visibility = View.VISIBLE
             }
+            zoomButton.visibility = toggleVisibility(zoomButton)
+            moveButton.visibility = toggleVisibility(moveButton)
+            refreshButton.visibility = toggleVisibility(refreshButton)
         }
 
         zoomButton.setBackgroundColor(Color.DKGRAY)
@@ -105,6 +128,59 @@ class MainActivity : AppCompatActivity() {
 
         refreshButton.setOnClickListener {
             webView.reload()
+        }
+
+        endTurnButton.setOnClickListener{
+            if (confirmEndTurnButton.visibility != View.VISIBLE) {
+                webView.loadUrl(JSScriptConstants.clickEndTurn)
+                confirmEndTurnButton.visibility = View.VISIBLE
+                endTurnButton.text = "Undo"
+            }
+            else {
+                webView.loadUrl(JSScriptConstants.clickUndoEndTurn)
+                confirmEndTurnButton.visibility = View.INVISIBLE
+                endTurnButton.text = "End Turn"
+            }
+        }
+
+        confirmEndTurnButton.setOnClickListener{
+            webView.loadUrl(JSScriptConstants.clickConfirm)
+            confirmEndTurnButton.visibility = View.INVISIBLE
+            endTurnButton.text = "End Turn"
+        }
+
+        gamerButton.setOnClickListener {
+            if (endTurnButton.visibility != View.VISIBLE) {
+                endTurnButton.visibility = toggleVisibility(endTurnButton)
+                gamerButton.text = "◀"
+            }
+            else {
+                endTurnButton.visibility = toggleVisibility(endTurnButton)
+                gamerButton.text = "\uD83C\uDFAE"
+            }
+            if (endTurnButton.text == "Undo"){
+                confirmEndTurnButton.visibility = toggleVisibility(confirmEndTurnButton)
+            }
+        }
+    }
+    private fun toggleVisibility(view: View): Int {
+        if (view.visibility == View.VISIBLE) {
+            return View.INVISIBLE
+        } else
+            return View.VISIBLE
+    }
+
+    private fun resetEndTurnButtonFrontends() {
+        endTurnButton.text = "End Turn"
+        confirmEndTurnButton.visibility = View.INVISIBLE
+    }
+
+    private fun setGamerButtonListVisiblity(webView: WebView, isBackButton: Boolean = false){
+        if(webView.url != null && webView.url!!.contains("https://awbw.amarriner.com/game.php?")){
+            gamerButtonList.visibility = View.VISIBLE
+            resetEndTurnButtonFrontends()
+        } else {
+            gamerButtonList.visibility = View.INVISIBLE
         }
     }
 }
