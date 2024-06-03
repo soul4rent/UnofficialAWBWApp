@@ -14,6 +14,11 @@ object JSScriptConstants {
         showCSSElement("#end-turn")
     )
 
+    fun openDamageCalculator(zoomLevel: Double): String {
+        return wrapJSforLoad(
+            clickElementByCSS(".calculator-toggle") + zoomElement("#calculator", zoomLevel) + repositionCalculatorElement()
+        )
+    }
 
     private fun waitForCSSElement(css: String): String {
         return "const elementOnPage = (query: string, timeout: number = 10000): Promise<HTMLElement | null> => {" +
@@ -36,11 +41,21 @@ object JSScriptConstants {
         return "javascript:(function f(){"+ js + "})()"
     }
 
-    private fun hideCSSElement(css: String) :String {
+    private fun hideCSSElement(css: String): String {
         return "document.querySelector('$css').style.display='none';"
     }
 
-    private fun showCSSElement(css: String) :String {
+    private fun showCSSElement(css: String): String {
         return "document.querySelector('$css').style.display='block';"
+    }
+
+    private fun zoomElement(css: String, zoomLevel: Double): String {
+        return "document.querySelector('$css').style.transform ='scale($zoomLevel)';"
+    }
+
+    private fun repositionCalculatorElement(): String {
+        return "var elem = document.getElementById('calculator');" +
+                "elem.style.top = window.visualViewport.offsetTop + 'px';"+
+                "elem.style.left = window.visualViewport.offsetLeft + 'px';"
     }
 }

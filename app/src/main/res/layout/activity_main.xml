@@ -19,18 +19,31 @@
         android:layout_alignParentRight="true"
         android:visibility="invisible"
         >
+
+        <LinearLayout
+            android:id="@+id/gamer_content_btn_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible">
+
+            <Button
+                android:id="@+id/move_calc_btn"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="Calc"
+                android:paddingHorizontal="1dp"
+                />
+
     <LinearLayout
         android:id="@+id/end_turn_btn_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:orientation="vertical">
         <Button
             android:id="@+id/end_btn"
             android:layout_width="70dp"
             android:layout_height="60dp"
             android:text="End Turn"
-            android:visibility="invisible"
             android:paddingHorizontal="1dp" />
         <Button
             android:id="@+id/confirm_btn"
@@ -42,6 +55,8 @@
             android:paddingHorizontal="1dp"
             android:backgroundTint="#228B22"/>
     </LinearLayout>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/gamer_btn"
