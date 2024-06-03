@@ -7,6 +7,7 @@ import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
+import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -25,13 +26,13 @@ class MainActivity : AppCompatActivity() {
     lateinit var gamerButton: Button
     lateinit var endTurnButton: Button
     lateinit var confirmEndTurnButton: Button
+    lateinit var gamerButtonList: LinearLayout
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (event.action == KeyEvent.ACTION_DOWN) {
             when (keyCode) {
                 KeyEvent.KEYCODE_BACK -> {
                     if (webView.canGoBack()) {
                         webView.goBack()
-                        resetEndTurnButtonFrontends()
                     } else {
                         finish()
                     }
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        setGamerButtonListVisiblity(webView)
         return super.onKeyDown(keyCode, event)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +66,7 @@ class MainActivity : AppCompatActivity() {
         gamerButton = findViewById(R.id.gamer_btn)
         endTurnButton = findViewById(R.id.end_btn)
         confirmEndTurnButton = findViewById(R.id.confirm_btn)
+        gamerButtonList = findViewById(R.id.gamer_btn_list)
 
         webView = findViewById(R.id.webview)
         // chromium, enable hardware acceleration
@@ -73,8 +76,14 @@ class MainActivity : AppCompatActivity() {
             //make sure deep links are forced to be rendered inside the webview
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 view.loadUrl(url)
-                resetEndTurnButtonFrontends()
                 return false
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                if (view != null) {
+                    setGamerButtonListVisiblity(view)
+                }
+                super.onPageFinished(view, url)
             }
 
         })
@@ -118,7 +127,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         refreshButton.setOnClickListener {
-            resetEndTurnButtonFrontends()
             webView.reload()
         }
 
@@ -165,5 +173,14 @@ class MainActivity : AppCompatActivity() {
     private fun resetEndTurnButtonFrontends() {
         endTurnButton.text = "End Turn"
         confirmEndTurnButton.visibility = View.INVISIBLE
+    }
+
+    private fun setGamerButtonListVisiblity(webView: WebView, isBackButton: Boolean = false){
+        if(webView.url != null && webView.url!!.contains("https://awbw.amarriner.com/game.php?")){
+            gamerButtonList.visibility = View.VISIBLE
+            resetEndTurnButtonFrontends()
+        } else {
+            gamerButtonList.visibility = View.INVISIBLE
+        }
     }
 }
