@@ -26,7 +26,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var gamerButton: Button
     lateinit var endTurnButton: Button
     lateinit var confirmEndTurnButton: Button
+    lateinit var moveCalcButton: Button
     lateinit var gamerButtonList: LinearLayout
+    lateinit var gamerContentButtonList: LinearLayout
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (event.action == KeyEvent.ACTION_DOWN) {
             when (keyCode) {
@@ -66,8 +68,13 @@ class MainActivity : AppCompatActivity() {
         gamerButton = findViewById(R.id.gamer_btn)
         endTurnButton = findViewById(R.id.end_btn)
         confirmEndTurnButton = findViewById(R.id.confirm_btn)
+        moveCalcButton = findViewById(R.id.move_calc_btn)
         gamerButtonList = findViewById(R.id.gamer_btn_list)
+        gamerContentButtonList = findViewById(R.id.gamer_content_btn_list)
+        var calcSize = 1.0 //default calculator size
 
+
+        //webview init
         webView = findViewById(R.id.webview)
         // chromium, enable hardware acceleration
         webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
@@ -149,17 +156,18 @@ class MainActivity : AppCompatActivity() {
             endTurnButton.text = "End Turn"
         }
 
+        moveCalcButton.setOnClickListener {
+            webView.loadUrl(JSScriptConstants.openDamageCalculator(calcSize))
+        }
+
         gamerButton.setOnClickListener {
-            if (endTurnButton.visibility != View.VISIBLE) {
-                endTurnButton.visibility = toggleVisibility(endTurnButton)
+            if (gamerContentButtonList.visibility != View.VISIBLE) {
+                gamerContentButtonList.visibility = toggleVisibility(gamerContentButtonList)
                 gamerButton.text = "◀"
             }
             else {
-                endTurnButton.visibility = toggleVisibility(endTurnButton)
+                gamerContentButtonList.visibility = toggleVisibility(gamerContentButtonList)
                 gamerButton.text = "\uD83C\uDFAE"
-            }
-            if (endTurnButton.text == "Undo"){
-                confirmEndTurnButton.visibility = toggleVisibility(confirmEndTurnButton)
             }
         }
     }
