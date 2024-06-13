@@ -33,6 +33,13 @@
                 android:text="Calc"
                 android:paddingHorizontal="1dp"
                 />
+            <Button
+                android:id="@+id/next_unit_btn"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="[ ! ]"
+                android:paddingHorizontal="1dp"
+                />
 
     <LinearLayout
         android:id="@+id/end_turn_btn_list"
@@ -80,14 +87,6 @@
             android:text="▶"
             android:paddingHorizontal="1dp"
             />
-
-    <Button
-        android:id="@+id/zoom_btn"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:text="🔎🔒"
-        android:paddingHorizontal="1dp"
-        />
 
     <Button
         android:id="@+id/move_btn"

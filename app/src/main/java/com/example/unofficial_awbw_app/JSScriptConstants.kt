@@ -14,6 +14,14 @@ object JSScriptConstants {
         showCSSElement("#end-turn")
     )
 
+    val getNextUnitButtonVisibility: String = "(function() { return document.querySelector('#select-next-unit').checkVisibility(); })();"
+
+    val clickNextUnitButton: String = wrapJSforLoad(
+        clickElementByCSS("#select-next-unit")+
+        scrollAndCenterByCSS(".movement-tile")+
+        scrollAndCenterByCSS(".build-options-game")
+    )
+
     fun openDamageCalculator(zoomLevel: Double): String {
         return wrapJSforLoad(
             clickElementByCSS(".calculator-toggle") + zoomElement("#calculator", zoomLevel) + repositionCalculatorElement()
@@ -31,6 +39,10 @@ object JSScriptConstants {
             "else setTimeout(tryQuery, 10); // check again every 10ms }" +
             "tryQuery(); // Initial check }); };" +
             "const elem = await elementOnPage('$css');"
+    }
+
+    private fun scrollAndCenterByCSS(css: String): String {
+        return "try{document.querySelector('$css').scrollIntoView({behavior: 'auto', block: 'center', inline: 'center'});}catch{}"
     }
 
     private fun clickElementByCSS(css: String): String{
