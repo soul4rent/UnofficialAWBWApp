@@ -22,6 +22,31 @@ object JSScriptConstants {
         scrollAndCenterByCSS(".build-options-game")
     )
 
+    val hideReplayClose: String = wrapJSforLoad(
+        hideCSSElement(".replay-close")
+    )
+
+    val clickReplayOpenButton: String = wrapJSforLoad(
+        clickElementByCSS(".replay-open")
+    )
+
+    val clickReplayFFForward: String = wrapJSforLoad(
+        clickElementByCSS(".replay-forward")
+    )
+
+    val clickReplayNext: String = wrapJSforLoad(
+        clickElementByCSS(".replay-forward-action")
+    )
+
+    val clickReplayBack: String = wrapJSforLoad(
+        clickElementByCSS(".replay-backward-action")
+    )
+
+    val clickReplayFFBack: String = wrapJSforLoad(
+        clickElementByCSS(".replay-backward")
+    )
+
+
     fun openDamageCalculator(zoomLevel: Double): String {
         return wrapJSforLoad(
             clickElementByCSS(".calculator-toggle") + zoomElement("#calculator", zoomLevel) + repositionCalculatorElement()

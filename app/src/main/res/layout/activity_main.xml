@@ -13,55 +13,106 @@
         android:scrollbars="none" />
 
     <LinearLayout
+        android:id="@+id/replay_viewer_btn_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/replay_ff_back"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingHorizontal="1dp"
+            android:text="⏪"/>
+
+        <Button
+            android:id="@+id/replay_back"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingHorizontal="1dp"
+            android:text="◀️"/>
+
+        <Button
+            android:id="@+id/replay_forward"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingHorizontal="1dp"
+            android:text="▶️"/>
+
+        <Button
+            android:id="@+id/replay_ff_forward"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingHorizontal="1dp"
+            android:text="⏩"/>
+
+        <Button
+            android:id="@+id/replay_exit"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingHorizontal="1dp"
+            android:text="❌🎥" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/gamer_btn_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:visibility="invisible"
-        >
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/gamer_content_btn_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible">
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/gamer_replay_btn"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:paddingHorizontal="1dp"
+                android:text="🎥" />
 
             <Button
                 android:id="@+id/move_calc_btn"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:text="Calc"
                 android:paddingHorizontal="1dp"
-                />
+                android:text="Calc" />
+
             <Button
                 android:id="@+id/next_unit_btn"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:text="[ ! ]"
                 android:paddingHorizontal="1dp"
-                />
+                android:text="[ ! ]" />
 
-    <LinearLayout
-        android:id="@+id/end_turn_btn_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <Button
-            android:id="@+id/end_btn"
-            android:layout_width="70dp"
-            android:layout_height="60dp"
-            android:text="End Turn"
-            android:paddingHorizontal="1dp" />
-        <Button
-            android:id="@+id/confirm_btn"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:text="Confirm"
-            android:visibility="invisible"
-            android:layout_alignParentRight="true"
-            android:paddingHorizontal="1dp"
-            android:backgroundTint="#228B22"/>
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/end_turn_btn_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/end_btn"
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:paddingHorizontal="1dp"
+                    android:text="End Turn" />
+
+                <Button
+                    android:id="@+id/confirm_btn"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true"
+                    android:backgroundTint="#228B22"
+                    android:paddingHorizontal="1dp"
+                    android:text="Confirm"
+                    android:visibility="invisible" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -69,7 +120,7 @@
             android:id="@+id/gamer_btn"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:text="🎮"/>
+            android:text="🎮" />
 
     </LinearLayout>
 
@@ -77,33 +128,30 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/drawer_btn"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:text="▶"
             android:paddingHorizontal="1dp"
-            />
+            android:text="▶" />
 
-    <Button
-        android:id="@+id/move_btn"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:text="↔️🔒"
-        android:paddingHorizontal="1dp"
-        />
+        <Button
+            android:id="@+id/move_btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingHorizontal="1dp"
+            android:text="↔️🔒" />
 
-    <Button
-        android:id="@+id/refresh_btn"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:text="🔄"
-        android:paddingHorizontal="1dp"
-        android:backgroundTint="@android:color/darker_gray"
-        />
+        <Button
+            android:id="@+id/refresh_btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:paddingHorizontal="1dp"
+            android:text="🔄" />
 
     </LinearLayout>
 
