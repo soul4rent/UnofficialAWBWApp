@@ -1,13 +1,12 @@
 package com.example.unofficial_awbw_app
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
-import android.webkit.WebResourceRequest
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
@@ -73,6 +72,7 @@ class MainActivity : AppCompatActivity() {
 
         //webView init
         webView = findViewById(R.id.webview)
+        webView.setWebChromeClient(WebChromeClient())
         // chromium, enable hardware acceleration
         webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         webView.setWebViewClient(object : WebViewClient() {
