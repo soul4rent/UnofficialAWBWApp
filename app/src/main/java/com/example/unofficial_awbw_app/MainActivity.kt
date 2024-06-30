@@ -106,6 +106,9 @@ class MainActivity : AppCompatActivity() {
             findViewById(R.id.move_calc_btn),
             findViewById(R.id.next_unit_btn),
             findViewById(R.id.gamer_replay_btn),
+            findViewById(R.id.super_button),
+            findViewById(R.id.COP_button),
+            findViewById(R.id.SCOP_button),
             findViewById(R.id.gamer_btn_list),
             findViewById(R.id.gamer_content_btn_list),
             webView
