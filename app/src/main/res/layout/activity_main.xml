@@ -24,28 +24,28 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:paddingHorizontal="1dp"
-            android:text="⏪"/>
+            android:text="⏪" />
 
         <Button
             android:id="@+id/replay_back"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:paddingHorizontal="1dp"
-            android:text="◀️"/>
+            android:text="◀️" />
 
         <Button
             android:id="@+id/replay_forward"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:paddingHorizontal="1dp"
-            android:text="▶️"/>
+            android:text="▶️" />
 
         <Button
             android:id="@+id/replay_ff_forward"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:paddingHorizontal="1dp"
-            android:text="⏩"/>
+            android:text="⏩" />
 
         <Button
             android:id="@+id/replay_exit"
@@ -69,6 +69,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone">
 
+
             <Button
                 android:id="@+id/gamer_replay_btn"
                 android:layout_width="60dp"
@@ -82,6 +83,37 @@
                 android:layout_height="60dp"
                 android:paddingHorizontal="1dp"
                 android:text="Calc" />
+
+            <LinearLayout
+                android:id="@+id/super_button_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/super_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:paddingHorizontal="1dp"
+                    android:text="☢️" />
+
+                <Button
+                    android:id="@+id/COP_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:paddingHorizontal="1dp"
+                    android:text="COP"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/SCOP_button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:paddingHorizontal="1dp"
+                    android:text="SCOP"
+                    android:visibility="gone" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/next_unit_btn"

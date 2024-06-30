@@ -16,6 +16,9 @@ object JSScriptConstants {
 
     val getNextUnitButtonVisibility: String = "(function() { return document.querySelector('#select-next-unit').checkVisibility(); })();"
 
+    val getCOPButtonVisibility: String = "(function() { return document.querySelector('.cop-button').checkVisibility(); })();"
+    val getSCOPButtonVisibility: String = "(function() { return document.querySelector('.scop-button').checkVisibility(); })();"
+
     val clickNextUnitButton: String = wrapJSforLoad(
         clickElementByCSS("#select-next-unit")+
         scrollAndCenterByCSS(".movement-tile")+
@@ -46,6 +49,8 @@ object JSScriptConstants {
         clickElementByCSS(".replay-backward")
     )
 
+    val clickCOP: String = wrapJSforLoad(clickElementByCSS(".cop-button"))
+    val clickSCOP: String = wrapJSforLoad(clickElementByCSS(".scop-button"))
 
     fun openDamageCalculator(zoomLevel: Double): String {
         return wrapJSforLoad(

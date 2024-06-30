@@ -1,8 +1,6 @@
 package com.example.unofficial_awbw_app
 
-import android.util.Log
 import android.view.View
-import android.webkit.ValueCallback
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.LinearLayout
@@ -27,12 +25,18 @@ class GamerBar(
     val moveCalcButton: Button,
     val nextUnitButton: Button,
     val replayButton: Button,
+    val superButton: Button,
+    val copButton: Button,
+    val scopButton: Button,
     val gamerButtonList: LinearLayout,
     val gamerContentButtonList: LinearLayout,
-    val webView: ScrollDisabledWebView
+    val webView: ScrollDisabledWebView,
+
 ) {
-    fun resetEndTurnButtonFrontends() {
+    fun resetButtonFrontends() {
         endTurnButton.text = "End Turn"
+        scopButton.visibility = View.GONE
+        copButton.visibility = View.GONE
         confirmEndTurnButton.visibility = View.GONE
     }
 
@@ -42,7 +46,7 @@ class GamerBar(
             && !webView.url!!.contains("&ndx")
         ) {
             gamerButtonList.visibility = View.VISIBLE
-            if(isRefresh){resetEndTurnButtonFrontends()}
+            if(isRefresh){resetButtonFrontends()}
         } else {
             gamerButtonList.visibility = View.GONE
         }
@@ -65,6 +69,8 @@ class GamerBar(
             if (confirmEndTurnButton.visibility != View.VISIBLE) {
                 webView.loadUrl(JSScriptConstants.clickEndTurn)
                 confirmEndTurnButton.visibility = View.VISIBLE
+                copButton.visibility = View.GONE
+                scopButton.visibility = View.GONE
                 endTurnButton.text = "Undo"
             } else {
                 webView.loadUrl(JSScriptConstants.clickUndoEndTurn)
@@ -75,8 +81,43 @@ class GamerBar(
 
         confirmEndTurnButton.setOnClickListener {
             webView.loadUrl(JSScriptConstants.clickConfirm)
-            confirmEndTurnButton.visibility = View.GONE
-            endTurnButton.text = "End Turn"
+            resetButtonFrontends()
+        }
+
+        superButton.setOnClickListener {
+            if (copButton.visibility != View.VISIBLE ) {
+                webView.evaluateJavascript(JSScriptConstants.getCOPButtonVisibility) {
+                    if (it.equals("true")) {
+                        copButton.visibility = View.VISIBLE //set button visible
+                        confirmEndTurnButton.visibility = View.GONE
+                    }
+                }
+            } else {
+                copButton.visibility = View.GONE
+            }
+
+            if (scopButton.visibility != View.VISIBLE) {
+                webView.evaluateJavascript(JSScriptConstants.getSCOPButtonVisibility) {
+                    if (it.equals("true")) {
+                        scopButton.visibility = View.VISIBLE //set button visible
+                        confirmEndTurnButton.visibility = View.GONE
+                    }
+                }
+            } else {
+                scopButton.visibility = View.GONE
+            }
+        }
+
+        copButton.setOnClickListener {
+            webView.loadUrl(JSScriptConstants.clickCOP)
+            copButton.visibility = View.GONE
+            scopButton.visibility = View.GONE
+        }
+
+        scopButton.setOnClickListener {
+            webView.loadUrl(JSScriptConstants.clickSCOP)
+            copButton.visibility = View.GONE
+            scopButton.visibility = View.GONE
         }
 
         replayButton.setOnClickListener {
@@ -99,6 +140,7 @@ class GamerBar(
                 gamerContentButtonList.visibility = View.VISIBLE
                 gamerButton.text = "◀"
             } else {
+                resetButtonFrontends()
                 gamerContentButtonList.visibility = View.GONE
                 gamerButton.text = "\uD83C\uDFAE"
             }
