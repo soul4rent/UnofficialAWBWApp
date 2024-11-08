@@ -1,7 +1,6 @@
 package com.example.unofficial_awbw_app
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MotionEvent
@@ -9,7 +8,6 @@ import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -19,9 +17,7 @@ import androidx.core.view.WindowInsetsCompat
 class MainActivity : AppCompatActivity() {
 
     lateinit var webView: ScrollDisabledWebView
-    lateinit var drawerButton: Button
-    lateinit var moveButton: Button
-    lateinit var refreshButton: Button
+    lateinit var mainDrawer: MainDrawer
 
     //gameplay buttons
     lateinit var gamerBar: GamerBar
@@ -65,11 +61,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        //default buttons
-        drawerButton = findViewById(R.id.drawer_btn)
-        moveButton = findViewById(R.id.move_btn)
-        refreshButton = findViewById(R.id.refresh_btn)
-
         //webView init
         webView = findViewById(R.id.webview)
         webView.setWebChromeClient(WebChromeClient())
@@ -97,6 +88,14 @@ class MainActivity : AppCompatActivity() {
         webView.getSettings().javaScriptEnabled = true
         webView.getSettings().builtInZoomControls = true //for toggling zoom
         webView.getSettings().displayZoomControls = false //hide +/- buttons
+
+        //main drawer buttons init
+        mainDrawer = MainDrawer(
+            findViewById(R.id.drawer_btn),
+            findViewById(R.id.move_btn),
+            findViewById(R.id.refresh_btn),
+            webView
+        )
 
         //gameplay buttons init
         gamerBar = GamerBar(
@@ -128,37 +127,6 @@ class MainActivity : AppCompatActivity() {
             webView.loadUrl("https://awbw.amarriner.com/")
         }
 
-        drawerButton.setOnClickListener {
-            if (drawerButton.text == "▶"){
-                drawerButton.text = "☰"
-            } else {
-                drawerButton.text = "▶"
-            }
-            moveButton.visibility = toggleVisibility(moveButton)
-            refreshButton.visibility = toggleVisibility(refreshButton)
-        }
-
-        moveButton.setBackgroundColor(Color.DKGRAY)
-        moveButton.setOnClickListener {
-            if (webView.scrollEnabled){
-                moveButton.setBackgroundColor(Color.BLUE)
-            } else {
-                moveButton.setBackgroundColor(Color.DKGRAY)
-            }
-            webView.scrollEnabled = !webView.scrollEnabled
-            webView.getSettings().builtInZoomControls = !webView.getSettings().builtInZoomControls
-        }
-
-        refreshButton.setOnClickListener {
-            webView.reload()
-        }
-
-    }
-    private fun toggleVisibility(view: View): Int {
-        return if (view.visibility == View.VISIBLE) {
-            View.INVISIBLE
-        } else
-            View.VISIBLE
     }
 
     private fun runJSOnPageLoad(webView: ScrollDisabledWebView){
