@@ -36,13 +36,15 @@ android {
 }
 
 dependencies {
-    implementation("androidx.webkit:webkit:1.8.0")
+    implementation("androidx.webkit:webkit:1.12.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
+    testImplementation("org.mockito:mockito-core:2.1.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
