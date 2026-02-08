@@ -1,8 +1,12 @@
 package com.example.unofficial_awbw_app
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.Toast
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
@@ -22,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var drawerButton: Button
     lateinit var moveButton: Button
     lateinit var refreshButton: Button
+
+    lateinit var copyLinkToClipboardButton: Button
 
     //gameplay buttons
     lateinit var gamerBar: GamerBar
@@ -69,6 +75,7 @@ class MainActivity : AppCompatActivity() {
         drawerButton = findViewById(R.id.drawer_btn)
         moveButton = findViewById(R.id.move_btn)
         refreshButton = findViewById(R.id.refresh_btn)
+        copyLinkToClipboardButton = findViewById(R.id.copy_link_btn)
 
         //webView init
         webView = findViewById(R.id.webview)
@@ -136,6 +143,7 @@ class MainActivity : AppCompatActivity() {
             }
             moveButton.visibility = toggleVisibility(moveButton)
             refreshButton.visibility = toggleVisibility(refreshButton)
+            copyLinkToClipboardButton.visibility = toggleVisibility(copyLinkToClipboardButton)
         }
 
         moveButton.setBackgroundColor(Color.DKGRAY)
@@ -150,7 +158,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         refreshButton.setOnClickListener {
+            webView.clearCache(true)
             webView.reload()
+        }
+
+        copyLinkToClipboardButton.setOnClickListener {
+            val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("url", webView.url)
+            clipboard.setPrimaryClip(clip)
+
+            Toast.makeText(this, "Link Copied to Clipboard", Toast.LENGTH_LONG)
+                .apply {setGravity(Gravity.TOP, 0, 0); show() }
         }
 
     }
