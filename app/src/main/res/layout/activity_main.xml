@@ -178,6 +178,13 @@
             android:text="↔️🔒" />
 
         <Button
+            android:id="@+id/copy_link_btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingHorizontal="1dp"
+            android:text="🔗"/>
+
+        <Button
             android:id="@+id/refresh_btn"
             android:layout_width="60dp"
             android:layout_height="60dp"
