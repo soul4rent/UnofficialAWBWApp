@@ -4,17 +4,20 @@ import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.Toast
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
+import android.webkit.RenderProcessGoneDetail
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -99,7 +102,14 @@ class MainActivity : AppCompatActivity() {
                 super.onPageFinished(view, url)
             }
 
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onRenderProcessGone(view: WebView, detail: RenderProcessGoneDetail): Boolean {
+                view.reload() // restart the renderer and reload the current page. White screen fix.
+                return true
+            }
+
         })
+        webView.overScrollMode = View.OVER_SCROLL_NEVER
         webView.getSettings().domStorageEnabled = true //for safe password storage
         webView.getSettings().javaScriptEnabled = true
         webView.getSettings().builtInZoomControls = true //for toggling zoom
@@ -131,8 +141,13 @@ class MainActivity : AppCompatActivity() {
             webView,
         )
 
-        if (savedInstanceState == null) { //enable clean loading
+        if (savedInstanceState == null) {
             webView.loadUrl("https://awbw.amarriner.com/")
+        } else {
+            // Restore after process death
+            webView.restoreState(savedInstanceState)
+            val lastUrl = savedInstanceState.getString("webview_url")
+            webView.loadUrl(if (!lastUrl.isNullOrEmpty()) lastUrl else "https://awbw.amarriner.com/")
         }
 
         drawerButton.setOnClickListener {
@@ -172,6 +187,23 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        webView.saveState(outState)
+        outState.putString("webview_url", webView.url)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        webView.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        webView.onResume()
+    }
+
     private fun toggleVisibility(view: View): Int {
         return if (view.visibility == View.VISIBLE) {
             View.INVISIBLE
