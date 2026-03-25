@@ -4,9 +4,9 @@ import android.widget.LinearLayout
 import org.junit.Test
 import org.mockito.*
 import org.junit.runner.RunWith
-import org.mockito.runners.MockitoJUnitRunner
 import org.mockito.kotlin.mock
 import android.view.View
+import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.doReturn
 
 /**
